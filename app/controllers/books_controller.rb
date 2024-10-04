@@ -8,15 +8,20 @@ class BooksController < ApplicationController
 
   # GET /books/1 or /books/1.json
   def show
+    @book = Book.find(params[:id])
   end
 
   # GET /books/new
   def new
     @book = Book.new
+    @authors = Author.all
   end
 
   # GET /books/1/edit
   def edit
+    @book = Book.find(params[:id])
+    @authors = Author.all
+    @book.authors.build if @book.authors.empty?
   end
 
   # POST /books or /books.json
@@ -36,14 +41,21 @@ class BooksController < ApplicationController
 
   # PATCH/PUT /books/1 or /books/1.json
   def update
-    respond_to do |format|
-      if @book.update(book_params)
-        format.html { redirect_to @book, notice: "Book was successfully updated." }
-        format.json { render :show, status: :ok, location: @book }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
-      end
+    # Handle existing authors (selected via collection_select)
+    if params[:book][:author_ids].present?
+      @book.author_ids = params[:book][:author_ids]
+    end
+
+    # Handle new author creation (from the text field)
+    if params[:book][:new_author_name].present?
+      new_author = Author.find_or_create_by(name: params[:book][:new_author_name])
+      @book.authors << new_author unless @book.authors.include?(new_author)
+    end
+
+    if @book.save
+      redirect_to @book, notice: "Book was successfully updated."
+    else
+      render :show
     end
   end
 
@@ -65,6 +77,6 @@ class BooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.require(:book).permit(:book_name, :book_description, :age_recomendations)
+      params.require(:book).permit(:book_name, :book_description, :age_recomendations, author_ids: [], authors_attributes: [:id, :author_name, :_destroy])
     end
 end

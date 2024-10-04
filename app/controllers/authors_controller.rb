@@ -1,6 +1,11 @@
 class AuthorsController < ApplicationController
   before_action :set_author, only: %i[ show edit update destroy ]
 
+  def books
+    @author = Author.find(params[:author_id])
+    @books = @author.books 
+  end
+
   # GET /authors or /authors.json
   def index
     @authors = Author.all

@@ -5,6 +5,21 @@
   </p>
 
   <p>
+    <strong>Authors:</strong>
+    <ul>
+      <% if book.authors.any? %>
+        <% book.authors.each do |author| %>
+          <li><%= link_to author.author_name, author_author_books_path(author.id) %></li>
+        <% end %>
+      <% else %>
+        <li>No authors found for this book.</li>
+      <% end %>
+    </ul>
+  </p>
+
+ 
+
+  <p>
     <strong>Book description:</strong>
     <%= book.book_description %>
   </p>
