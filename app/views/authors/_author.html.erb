@@ -9,4 +9,17 @@
     <%= author.author_bio %>
   </p>
 
+  <p>
+    <strong>Author books:</strong>
+    <ul>
+      <% if author.books.any? %>
+        <% author.books.each do |book| %>
+          <li><%= link_to book.book_name, book_path(book.id) %></li>
+        <% end %>
+      <% else %>
+        <li>No books found for this author.</li>
+      <% end %>
+    </ul>
+  </p>
+
 </div>
