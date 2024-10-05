@@ -11,6 +11,20 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <!-- navigation bar or header content here -->
+    </header>
+
+    <div class="container">
+      <!-- Flash messages for alerts and notices -->
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+
+      <%= yield %> <!-- renders the main content of each page -->
+    </div>
+
+    <footer>
+      <!-- footer content here -->
+    </footer>
   </body>
 </html>
