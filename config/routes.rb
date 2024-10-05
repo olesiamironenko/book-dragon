@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :users
 
   resources :authors do
     get 'books', to: 'authors#books', as: 'author_books'
