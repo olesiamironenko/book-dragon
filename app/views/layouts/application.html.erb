@@ -13,6 +13,33 @@
   <body>
     <header>
       <!-- navigation bar or header content here -->
+      <% if @current_user %>
+  <%= "#{@current_user.name} is logged on." %>
+  <% else %>
+  No one is logged on.
+  <% end %>
+    <ul class="ul-bar">
+      <li class="dropdown"><span>Books</span>
+          <ul class="dropdown-content ul-bar">
+            <li><a href="/books">All books </a></li>
+            <li><a href="/books/new">New book </a></li>
+          </ul>
+      </li>
+      <li class="dropdown"><span>Authors</span>
+          <ul class="dropdown-content ul-bar">
+            <li><a href="/authors">All authors </a></li>
+            <li><a href="/authors/new">New author </a></li>
+          </ul>
+      </li>
+      <li class="dropdown"><span>Users</span>
+          <ul class="dropdown-content ul-bar">
+            <li><a href="/users">All Users</a></li>
+            <li><a href="/users/new">New User</a></li>
+            
+          </ul>
+      </li>              
+    </ul>
+
     </header>
 
     <div class="container">
