@@ -13,11 +13,12 @@
   <body>
     <header>
       <!-- navigation bar or header content here -->
-      <% if @current_user %>
-  <%= "#{@current_user.name} is logged on." %>
-  <% else %>
-  No one is logged on.
-  <% end %>
+      <% if user_signed_in? %>
+        <p>A user is logged in.</p>
+      <% else %>
+        <p>No user is logged in.</p>
+      <% end %>
+      
     <ul class="ul-bar">
       <li class="dropdown"><span>Books</span>
           <ul class="dropdown-content ul-bar">
@@ -37,7 +38,18 @@
             <li><a href="/users/new">New User</a></li>
             
           </ul>
-      </li>              
+      </li>   
+      
+     
+    <% if current_user? %>
+      <li><%= link_to 'Profile', edit_user_registration_path %></li>
+      <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+    <% else %>
+      <li><%= link_to 'Login', new_user_session_path %></li>
+      <li><%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary' %></li>
+    <% end %>
+  
+
     </ul>
 
     </header>

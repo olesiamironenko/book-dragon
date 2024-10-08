@@ -1,13 +1,20 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
+  }
 
   root to: "books#index"
 
   resources :users
 
+  
+
   resources :authors do
     get 'books', to: 'authors#books', as: 'author_books'
   end
+
+
 
   resources :books
   
