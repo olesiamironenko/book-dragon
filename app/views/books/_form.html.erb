@@ -16,6 +16,14 @@
     <%= form.text_field :book_name %>
   </div><br>
 
+  <div> Book genre:
+  <!-- Collection select for existing genres -->
+    <div>
+      <%= form.label :genre_id, "Select Genre:", style: "display: block" %>
+      <%= form.collection_select :genre_id, @genres, :id, :genre_name, {}  %>
+    </div>
+  </div>
+
   <div> Book author(s):
     <!-- Collection select for existing authors -->
     <div>
