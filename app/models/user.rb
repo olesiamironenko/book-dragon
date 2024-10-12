@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :reading_lists
+  
   validates :email, presence: true, uniqueness: true, email: true
   validates :password, presence: true, password_strength: true
 
@@ -6,4 +8,5 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
 end

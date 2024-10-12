@@ -1,0 +1,13 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Reading lists</h1>
+
+<div id="reading_lists">
+  <% @reading_lists.each do |reading_list| %>
+    <p>
+      <%= link_to reading_list.name, reading_list %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New reading list", new_reading_list_path %>
