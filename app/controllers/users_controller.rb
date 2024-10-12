@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
-    debugger
+   
   end
 
   # GET /users/new
@@ -62,7 +62,8 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find_by(id: params[:id])
+      redirect_to root_path, alert: 'User not found' if @user.nil?
     end
 
     # Only allow a list of trusted parameters through.

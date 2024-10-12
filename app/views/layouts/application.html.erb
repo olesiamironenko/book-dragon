@@ -13,10 +13,11 @@
   <body>
     <header>
       <!-- navigation bar or header content here -->
+
       <% if user_signed_in? %>
-        <p>A user is logged in.</p>
+        <p>Welcome, <%= current_user.first_name %>, <%= current_user.id %></p>
       <% else %>
-        <p>No user is logged in.</p>
+        <p> No user is logged in. </p>
       <% end %>
       
     <ul class="ul-bar">
@@ -41,9 +42,9 @@
       </li>   
       
      
-    <% if current_user? %>
+    <% if current_user %>
       <li><%= link_to 'Profile', edit_user_registration_path %></li>
-      <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+      <li><%= button_to 'Logout', destroy_user_session_path, method: :delete %></li>
     <% else %>
       <li><%= link_to 'Login', new_user_session_path %></li>
       <li><%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary' %></li>
