@@ -6,20 +6,23 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload", media: "all" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <header>
       <!-- navigation bar or header content here -->
-
+      
+    <div class="mt-4 p-5 bg-primary text-white rounded">
       <% if user_signed_in? %>
         <p>Welcome, <%= current_user.first_name %>, <%= current_user.id %></p>
       <% else %>
         <p> No user is logged in. </p>
       <% end %>
-      
+    </div>
+    
+
     <ul class="ul-bar">
       <li class="dropdown"><span>Books</span>
           <ul class="dropdown-content ul-bar">
@@ -49,30 +52,26 @@
           <ul class="dropdown-content ul-bar">
             <li><a href="/users">All Users</a></li>
             <li><a href="/users/new">New User</a></li>
-            
           </ul>
       </li>   
-      
-     
-    <% if current_user %>
-      <li><%= link_to 'Profile', edit_user_registration_path %></li>
-      <li><%= button_to 'Logout', destroy_user_session_path, method: :delete %></li>
-    <% else %>
-      <li><%= button_to 'Login', new_user_session_path %></li>
-      <li><%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary' %></li>
-    <% end %>
-  
-
+        <% if current_user %>
+          <li><%= link_to 'Profile', edit_user_registration_path %></li>
+          <li><%= button_to 'Logout', destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= button_to 'Login', new_user_session_path %></li>
+          <li><%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary' %></li>
+        <% end %>
     </ul>
 
     </header>
 
-    <div class="container">
+    <div class="container-fluid">
       <!-- Flash messages for alerts and notices -->
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
 
       <%= yield %> <!-- renders the main content of each page -->
+    </div>
     </div>
 
     <footer>
