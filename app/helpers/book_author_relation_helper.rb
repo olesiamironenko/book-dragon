@@ -1,0 +1,2 @@
+module BookAuthorRelationHelper
+end

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @reading_list %>
+
+<div>
+  <%= link_to "Edit this reading list", edit_reading_list_path(@reading_list) %> |
+  <%= link_to "Back to reading lists", reading_lists_path %>
+
+  <%= button_to "Destroy this reading list", @reading_list, method: :delete %>
+</div>

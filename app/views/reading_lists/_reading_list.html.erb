@@ -1,0 +1,27 @@
+<div id="<%= dom_id reading_list %>">
+  <p>
+    <strong>Name:</strong>
+    <%= reading_list.name %>
+  </p>
+
+  <h1><%= @reading_list.name %></h1>
+
+<h2>Books in this list:</h2>
+
+<% if @reading_list.books.any? %>
+  <ul>
+    <% @reading_list.books.each do |book| %>
+      <li><%= book.book_name %> by <%= book.author %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no books in this list yet.</p>
+<% end %>
+
+<%= form_with url: add_book_reading_list_path(@reading_list), method: :post do %>
+  <%= label_tag :book_id, "Add a book" %>
+  <%= select_tag :book_id, options_from_collection_for_select(Book.all, :id, :book_name) %>
+  <%= submit_tag 'Add Book' %>
+<% end %>
+
+</div>

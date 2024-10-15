@@ -1,0 +1,32 @@
+<div id="<%= dom_id book %>">
+  <p>
+    <strong>Book name:</strong>
+    <%= book.book_name %>
+  </p>
+
+  <p>
+    <strong>Authors:</strong>
+    <ul>
+      <% if book.authors.any? %>
+        <% book.authors.each do |author| %>
+          <li><%= link_to author.author_name, author_path(author.id) %></li>
+        <% end %>
+      <% else %>
+        <li>No authors found for this book.</li>
+      <% end %>
+    </ul>
+  </p>
+
+ 
+
+  <p>
+    <strong>Book description:</strong>
+    <%= book.book_description %>
+  </p>
+
+  <p>
+    <strong>Age recomendations:</strong>
+    <%= book.age_recomendations %>
+  </p>
+
+</div>
