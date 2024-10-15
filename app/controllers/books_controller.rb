@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_book, only: %i[ show edit update destroy ]
 
   # GET /books or /books.json
@@ -13,9 +14,13 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
-    @book = Book.new
-    @genres = Genre.all
-    @authors = Author.all
+    if user_signed_in?
+      @book = Book.new
+      @genres = Genre.all
+      @authors = Author.all
+    else
+      redirect_to root_path, alert: "You need to sign in or sign up before continuing."
+    end
   end
 
   # GET /books/1/edit

@@ -11,52 +11,53 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :book_name, "Book name:", style: "display: block" %>
-    <%= form.text_field :book_name %>
-  </div><br>
-
-  <div> Book genre:
-  <!-- Collection select for existing genres -->
     <div>
-      <%= form.label :genre_id, "Select Genre:", style: "display: block" %>
-      <%= form.collection_select :genre_id, @genres, :id, :genre_name, {}  %>
-    </div>
-  </div>
+      <%= form.label :book_name, "Book name:", style: "display: block" %>
+      <%= form.text_field :book_name %>
+    </div><br>
 
-  <div> Book author(s):
-    <!-- Collection select for existing authors -->
-    <div>
-      <%= form.label :author_ids, "Select Existing Author:", style: "display: block" %>
-      <%= form.collection_select :author_ids, @authors, :id, :author_name, {}, { multiple: true } %>
+    <div> Book genre:
+    <!-- Collection select for existing genres -->
+      <div>
+        <%= form.label :genre_id, "Select Genre:", style: "display: block" %>
+        <%= form.collection_select :genre_id, @genres, :id, :genre_name, {}  %>
+      </div>
     </div>
 
-    <!-- Text field for creating a new author -->
+    <div> Book author(s):
+      <!-- Collection select for existing authors -->
+      <div>
+        <%= form.label :author_ids, "Select Existing Author:", style: "display: block" %>
+        <%= form.collection_select :author_ids, @authors, :id, :author_name, {}, { multiple: true } %>
+      </div>
+
+      <!-- Text field for creating a new author -->
+      <div>
+        <%= form.label :new_author_name, "Or Add a New Author:", style: "display: block" %>
+        <%= form.text_field :new_author_name %>
+      </div>
+    </div><br>
+
     <div>
-      <%= form.label :new_author_name, "Or Add a New Author:", style: "display: block" %>
-      <%= form.text_field :new_author_name %>
+      <%= form.label :book_description, style: "display: block" %>
+      <%= form.text_area :book_description %>
+    </div><br>
+
+    <div>Age recomendations:
+      <div>
+        <%= form.radio_button :age_recomendations, "babies" %>
+        <%= form.label :babies, "babies" %>
+        <%= form.radio_button :age_recomendations, "kids" %>
+        <%= form.label :kids, "kids" %>
+        <%= form.radio_button :age_recomendations, "youths" %>
+        <%= form.label :youths, "youths" %>
+        <%= form.radio_button :age_recomendations, "adults" %>
+        <%= form.label :adults, "adults" %>
+      <div>
+    </div><br>
+
+    <div>
+      <%= form.submit %>
     </div>
-  </div><br>
 
-  <div>
-    <%= form.label :book_description, style: "display: block" %>
-    <%= form.text_area :book_description %>
-  </div><br>
-
-  <div>Age recomendations:
-    <div>
-      <%= form.radio_button :age_recomendations, "babies" %>
-      <%= form.label :babies, "babies" %>
-      <%= form.radio_button :age_recomendations, "kids" %>
-      <%= form.label :kids, "kids" %>
-      <%= form.radio_button :age_recomendations, "youths" %>
-      <%= form.label :youths, "youths" %>
-      <%= form.radio_button :age_recomendations, "adults" %>
-      <%= form.label :adults, "adults" %>
-    <div>
-  </div><br>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>

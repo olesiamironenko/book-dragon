@@ -13,62 +13,90 @@
   <body>
     <header>
       <!-- navigation bar or header content here -->
-      
-    <div class="mt-4 p-5 bg-primary text-white rounded">
-      <% if user_signed_in? %>
-        <p>Welcome, <%= current_user.first_name %>, <%= current_user.id %></p>
-      <% else %>
-        <p> No user is logged in. </p>
-      <% end %>
-    </div>
+      <div class="container-fluid">
+        <div class="container-fluid p-5 banner-background text-white text-left text-shadow rounded">
+          <h1>Book Dragon</h1>
+          <p>A simple application to keep track of your reading experience</p> 
+        </div>
+
+        <div class="d-flex align-items-center gap-2 mt-1 p-2 bg-secondary text-white rounded">
+          <% if user_signed_in? %>
+            <p class='inline-element mb-0'> Welcome, <%= current_user.first_name %></p>
+          <% else %>
+            <p class='inline-element mb-0'> No user is logged in </p>
+          <% end %>
+
+          <% if user_signed_in? %>
+            <%= button_to 'Profile', user_path(current_user), method: :get, class: 'mt-1' %>
+            <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'mt-1' %>
+          <% else %>
+            <%= button_to 'Login', new_user_session_path, method: :get, class: 'mt-1' %>
+            <%= button_to 'Register', new_user_registration_path, method: :get, class: 'mt-1' %>
+          <% end %>
+        </div>
     
 
-    <ul class="ul-bar">
-      <li class="dropdown"><span>Books</span>
-          <ul class="dropdown-content ul-bar">
-            <li><a href="/books">All books </a></li>
-            <li><a href="/books/new">New book </a></li>
-          </ul>
-      </li>
-      <li class="dropdown"><span>Authors</span>
-          <ul class="dropdown-content ul-bar">
-            <li><a href="/authors">All authors </a></li>
-            <li><a href="/authors/new">New author </a></li>
-          </ul>
-      </li>
-      <li class="dropdown"><span>Genres</span>
-          <ul class="dropdown-content ul-bar">
-            <li><a href="/genres">All genres </a></li>
-            <li><a href="/genres/new">New genre </a></li>
-          </ul>
-      </li>
-      <li class="dropdown"><span>Reading lists</span>
-          <ul class="dropdown-content ul-bar">
-            <li><a href="/reading_lists">All reading lists </a></li>
-            <li><a href="/reading_lists/new">New reading lists </a></li>
-          </ul>
-      </li>
-      <li class="dropdown"><span>Users</span>
-          <ul class="dropdown-content ul-bar">
-            <li><a href="/users">All Users</a></li>
-            <li><a href="/users/new">New User</a></li>
-          </ul>
-      </li>   
-        <% if current_user %>
-          <li><%= link_to 'Profile', edit_user_registration_path %></li>
-          <li><%= button_to 'Logout', destroy_user_session_path, method: :delete %></li>
-        <% else %>
-          <li><%= button_to 'Login', new_user_session_path %></li>
-          <li><%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary' %></li>
-        <% end %>
-    </ul>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="http://localhost:3000">BookDragon</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Books
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="http://localhost:3000/books">All Books</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="http://localhost:3000/books/new">New Book</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Authors
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="http://localhost:3000/authors">All Authors</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="http://localhost:3000/authors/new">New Author</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Genres
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="http://localhost:3000/genres">All Genres</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="http://localhost:3000/genres/new">New Genre</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Reading Lists
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="http://localhost:3000/reading_lists">All Reading Lists</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="http://localhost:3000/reading_lists/new">New Reading List</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+
+    <div class="mt-1 p-2 bg-secondary rounded">
+
+    </div>
 
     </header>
 
     <div class="container-fluid">
-      <!-- Flash messages for alerts and notices -->
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      
 
       <%= yield %> <!-- renders the main content of each page -->
     </div>

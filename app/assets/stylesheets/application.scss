@@ -15,29 +15,14 @@
  */
  @import "bootstrap";
 
- .ul-bar {
-    list-style-type: none;
-    margin: 5;
-    padding: 5;
-    background-color: lightblue;
-  }
- .dropdown {
-   position: relative;
-   display: inline-block;
- }
- .dropdown-li {
-   position: relative;
-   display: inline-block;
- }
- .dropdown-content {
-     display: none;
-     position: absolute;
-     background-color: #f9f9f9;
-     min-width: 160px;
-     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-     padding: 12px 16px;
-     z-index: 1;
- }
- .dropdown:hover .dropdown-content {
-     display: block;
- }
+ .banner-background {
+  background-image: url('bookbanner.jpg');
+  background-size: cover;
+  background-position-y: 15%;
+  font-family: 'PixelifySans-VariableFont_wght'; 
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adjust values as needed */
+}
+

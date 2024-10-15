@@ -11,7 +11,7 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     super do |resource|
-      flash[:notice] = "Welcome back, #{resource.email}!"
+      flash[:notice] = "Welcome back, #{resource.first_name}!"
     end
   end
 
