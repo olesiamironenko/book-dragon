@@ -38,10 +38,14 @@
             <%= button_to "Edit this book", edit_book_path(book), method: :get, class: 'inline-element mb-0' %>
           </div>
           <div>
-            <%= form_with url: add_to_reading_list_book_path(book), method: :post, local: true do %>
-              <%= label_tag :reading_list_id, "Add to Reading List:" %>
-              <%= collection_select(:reading_list_book, :reading_list_id, current_user.reading_lists, :id, :name) %>
-              <%= submit_tag "Add" %>
+            <% if user_signed_in? %>  
+              <%= form_with url: add_to_reading_list_book_path(book), method: :post, local: true do %>
+                <%= label_tag :reading_list_id, "Add to Reading List:" %>
+                <%= collection_select(:reading_list_book, :reading_list_id, current_user.reading_lists, :id, :name) %>
+                <%= submit_tag "Add" %>
+              <% end %>
+            <% else %>
+              <p class='inline-element mb-0'> <%= link_to 'Log in', new_user_session_path, method: :get, class: 'mt-1' %> to add the book to your reading list</p>
             <% end %>
           </div>
         </div> <!-- card-footer closed -->
