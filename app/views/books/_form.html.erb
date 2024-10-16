@@ -20,7 +20,7 @@
     <!-- Collection select for existing genres -->
       <div>
         <%= form.label :genre_id, "Select Genre:", style: "display: block" %>
-        <%= form.collection_select :genre_id, @genres, :id, :genre_name, {}  %>
+        <%= form.collection_select :genre_id, Genre.all, :id, :genre_name %>
       </div>
     </div>
 

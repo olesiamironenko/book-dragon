@@ -9,4 +9,17 @@
     <%= genre.genre_description %>
   </p>
 
+  <h2>Books in this genre:</h2>
+  <ul>
+    <% if @genre && @genre.books.any? %>
+      <% @genre.books.each do |book| %>
+        <li>
+          <%= link_to book.book_name, book_path(book) %>
+        </li>
+      <% end %>
+    <% else %>
+      <li>No books found in this genre.</li>
+    <% end %>
+  </ul>
+
 </div>

@@ -4,6 +4,11 @@
     <%= book.book_name %>
   </p>
 
+  <strong>Genre:</strong>
+  <ul>
+    <li><%= link_to book.genre.genre_name, genre_path(book.genre) %></li>
+  </ul>
+  
   <p>
     <strong>Authors:</strong>
     <ul>

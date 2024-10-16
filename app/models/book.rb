@@ -9,5 +9,6 @@ class Book < ApplicationRecord
 
     accepts_nested_attributes_for :authors
 
+    validates :book_name, presence: true
     validates :age_recomendations, inclusion: { in: %w(babies kids youths adults) }
 end

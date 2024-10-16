@@ -1,14 +1,53 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Books</h1>
-
-<div id="books">
-  <% @books.each do |book| %>
-    <%= render book %>
-    <p>
-      <%= link_to "Show this book", book %>
-    </p>
-  <% end %>
+<div class='d-flex align-items-center gap-5 mt-1 p-2' >
+  <h1 class='inline-element mb-0' >Books</h1> 
+  <%= button_to 'Add new book', new_book_path, method: :get, class: 'inline-element mb-0' %>
 </div>
 
-<%= link_to "New book", new_book_path %>
+<div id="books" class="container-fluid row">
+  <% @books.each do |book| %>
+    <div class="col-sm">
+      <div id="card" class="card border border-2 border-success p-1 mt-3" style="width: 20rem;">
+        <div class="card-header">
+          <h2><%= book.book_name %></h2>
+        </div>  <!-- card-header closed -->
+        <div class="card-body">
+          <strong>Genre:</strong>
+            <ul>
+              <li><%= link_to book.genre.genre_name, genre_path(book.genre) %></li>
+            </ul>
+          <strong>Authors:</strong>
+            <ul>
+              <% if book.authors.any? %>
+                <% book.authors.each do |author| %>
+                  <li><%= link_to author.author_name, author_path(author.id) %></li>
+                <% end %>
+              <% else %>
+                <li>No authors found for this book.</li>
+              <% end %>
+            </ul>
+          <strong>Age recommendations:</strong>
+            <ul>
+              <li><%= book.age_recomendations %></li>
+            </ul>
+        </div> <!-- card-body closed -->
+        <div id="card-footer" class="card-footer">
+          <div class='d-flex align-items-center gap-1 mt-1 p-2' >
+            <%= button_to "Show this book", book, method: :get, class: 'inline-element mb-0' %>
+            <%= button_to "Edit this book", edit_book_path(book), method: :get, class: 'inline-element mb-0' %>
+          </div>
+          <div>
+            <%= form_with url: add_to_reading_list_book_path(book), method: :post, local: true do %>
+              <%= label_tag :reading_list_id, "Add to Reading List:" %>
+              <%= collection_select(:reading_list_book, :reading_list_id, current_user.reading_lists, :id, :name) %>
+              <%= submit_tag "Add" %>
+            <% end %>
+          </div>
+        </div> <!-- card-footer closed -->
+      </div> <!-- card closed -->
+    </div> <!-- col-sm closed -->
+  <% end %> <!-- books each iteration closed -->
+</div> <!-- books container-fluid closed -->
+
+

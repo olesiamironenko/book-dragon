@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :reading_lists, dependent: :destroy
   
+  validates :first_name, presence: true
+  validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true, email: true
   validates :password, presence: true, password_strength: true
 

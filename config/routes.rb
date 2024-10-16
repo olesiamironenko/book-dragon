@@ -10,11 +10,15 @@ Rails.application.routes.draw do
 
   resources :users
 
+  resources :genres
+
   resources :authors do
     get 'books', to: 'authors#books', as: 'author_books'
   end
 
-  resources :books
+  resources :books do
+    post 'add_to_reading_list', on: :member
+  end
   
   resources :book_author_relation
 
