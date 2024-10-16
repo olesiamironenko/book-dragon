@@ -35,6 +35,12 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
 
+    # Handle new author creation (from the text field)
+    if params[:book][:new_author_name].present?
+      new_author = Author.find_or_create_by(author_name: params[:book][:new_author_name])
+      @book.authors << new_author unless @book.authors.include?(new_author)
+    end
+
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: "Book was successfully created." }
@@ -56,7 +62,7 @@ class BooksController < ApplicationController
 
     # Handle new author creation (from the text field)
     if params[:book][:new_author_name].present?
-      new_author = Author.find_or_create_by(name: params[:book][:new_author_name])
+      new_author = Author.find_or_create_by(author_name: params[:book][:new_author_name])
       @book.authors << new_author unless @book.authors.include?(new_author)
     end
 
@@ -74,6 +80,17 @@ class BooksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to books_path, status: :see_other, notice: "Book was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def add_to_reading_list
+    @book = Book.find(params[:id])
+    @reading_list = current_user.reading_lists.find(params[:reading_list_book][:reading_list_id])
+
+    if @reading_list.books << @book
+      redirect_to books_path, notice: 'Book was successfully added to your reading list.'
+    else
+      redirect_to books_path, alert: 'Error adding book to reading list.'
     end
   end
 

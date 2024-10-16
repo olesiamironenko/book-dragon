@@ -11,7 +11,7 @@
 <% if @reading_list.books.any? %>
   <ul>
     <% @reading_list.books.each do |book| %>
-      <li><%= book.book_name %> by <%= book.author %></li>
+      <li><%= link_to book.book_name %> </li>
     <% end %>
   </ul>
 <% else %>
