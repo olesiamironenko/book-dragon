@@ -21,6 +21,16 @@
     <%= form.text_field :last_name %>
   </div>
 
+  <div class="field">
+    <%= form.label :profile_picture %>
+    <%= form.file_field :profile_picture %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %> 
+    <%= form.password_field :password, autocomplete: "new-password" %>
+  </div>
+
   <div>
     <%= form.submit %>
   </div>
