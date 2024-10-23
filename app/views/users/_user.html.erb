@@ -1,4 +1,11 @@
 <div id="<%= dom_id user %>">
+
+  <% if @user.profile_picture.attached? %>
+    <%= image_tag url_for(@user.profile_picture), width: 150 %>
+  <% else %>
+    <p>No profile picture uploaded.</p>
+  <% end %>
+
   <p>
     <strong>First name:</strong>
     <%= user.first_name %>

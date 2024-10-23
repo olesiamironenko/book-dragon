@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
   resources :reading_lists
   resources :genres
+
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions'
   }
 
+  devise_scope :user do
+    get 'users/edit_password', to: 'users/registrations#edit_password', as: :edit_password
+    put 'users/update_password', to: 'users/registrations#update_password', as: :password_update
+  end
+
   root to: "books#index"
 
-  resources :users
+  resources :users, only: [:index, :show]
 
   resources :genres
 

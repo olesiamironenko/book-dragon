@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  include Rails.application.routes.url_helpers
+
+
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
+  before_action :authenticate_user!, only: [:edit_password, :update_password]
+  
 
   # GET /resource/sign_up
   def new
@@ -37,6 +42,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  
+
+
   # DELETE /resource
   # def destroy
   #   super
@@ -51,17 +59,50 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  # Edit action for password update
+  def edit_password
+    @user = current_user
+  end
+
+  # Update action for password update
+  def update_password
+    @user = current_user
+
+    # Ensure current password is provided
+    if @user.update_with_password(password_update_params)
+      # Sign in the user again after password change, since Devise logs the user out by default
+      bypass_sign_in(@user)
+      redirect_to edit_user_registration_path, notice: 'Password successfully updated'
+    else
+      render 'edit_password'
+    end
+  end
+
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
+
+  # Override Devise's method to handle updates without requiring current_password
+  # def update_resource(resource, params)
+  #   # If the user is not trying to change their password, allow updating without current_password
+  #   if params[:password].blank? && params[:current_password].blank?
+  #     resource.update_without_password(params)
+  #   else
+  #     resource.update_with_password(params)
+  #   end
+  # end
+
+
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :email, :profile_picture, :password, :password_confirmation])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :email, :profile_picture, :password, :password_confirmation])
   end
+
+  
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)
@@ -75,11 +116,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
+  # def user_params
+  #   params.require(:user).permit(:first_name, :last_name, :email, :profile_picture, :current_password, :password, :password_confirmation)
+  # end
+
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name)
+    params.require(:user).permit(:first_name, :last_name, :email, :profile_picture, :current_password, :password, :password_confirmation)
   end
 
   def account_update_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :first_name, :last_name)
+    params.require(:user).permit(:first_name, :last_name, :email, :profile_picture, :password, :password_confirmation)
   end
+
+  def password_update_params
+    params.require(:user).permit(:current_password, :password, :password_confirmation)
+  end
+
 end
