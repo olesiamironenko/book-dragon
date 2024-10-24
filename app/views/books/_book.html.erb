@@ -4,12 +4,22 @@
     <%= book.book_name %>
   </p>
 
-  <strong>Genre:</strong>
-  <ul>
-    <li><%= link_to book.genre.genre_name, genre_path(book.genre) %></li>
-  </ul>
+  <div>
+    <% if book && book.book_picture.attached? %>
+      <%= image_tag url_for(book.book_picture), width: 150 %>
+    <% else %>
+      <p>No book picture available</p>  
+    <% end %>
+    </div>
   
-  <p>
+    <div>
+      <strong>Genre:</strong>
+      <ul>
+        <li><%= link_to book.genre.genre_name, genre_path(book.genre) %></li>
+      </ul>
+    </div>
+  
+  <div>
     <strong>Authors:</strong>
     <ul>
       <% if book.authors.any? %>
@@ -23,15 +33,16 @@
   </p>
 
  
-
-  <p>
+  <div>
+  
     <strong>Book description:</strong>
     <%= book.book_description %>
-  </p>
+ 
+  </div>
 
-  <p>
+  <div>
     <strong>Age recomendations:</strong>
     <%= book.age_recomendations %>
-  </p>
+    </div>
 
 </div>

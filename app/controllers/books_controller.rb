@@ -55,6 +55,7 @@ class BooksController < ApplicationController
 
   # PATCH/PUT /books/1 or /books/1.json
   def update
+    @book = Book.find(params[:id])
     # Handle existing authors (selected via collection_select)
     if params[:book][:author_ids].present?
       @book.author_ids = params[:book][:author_ids]
@@ -66,11 +67,12 @@ class BooksController < ApplicationController
       @book.authors << new_author unless @book.authors.include?(new_author)
     end
 
-    if @book.save
+    if @book.update(book_params)
       redirect_to @book, notice: "Book was successfully updated."
     else
-      render :show
+      render :edit, notice: "Failed to update the book"
     end
+
   end
 
   # DELETE /books/1 or /books/1.json
@@ -102,6 +104,6 @@ class BooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.require(:book).permit(:book_name, :book_description, :age_recomendations, :genre_id, author_ids: [], authors_attributes: [:id, :author_name, :_destroy])
+      params.require(:book).permit(:book_name, :book_description, :age_recomendations, :genre_id, :book_picture, author_ids: [], authors_attributes: [:id, :author_name, :_destroy])
     end
 end
