@@ -13,6 +13,15 @@
           <h2><%= book.book_name %></h2>
         </div>  <!-- card-header closed -->
         <div class="card-body">
+
+        <div>
+          <% if book && book.book_picture.attached? %>
+            <%= image_tag url_for(book.book_picture), width: 150 %>
+          <% else %>
+            <p>No book picture available</p>
+          <% end %>
+        </div>
+
           <strong>Genre:</strong>
             <ul>
               <li><%= link_to book.genre.genre_name, genre_path(book.genre) %></li>

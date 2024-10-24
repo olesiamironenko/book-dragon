@@ -21,6 +21,12 @@
     <%= form.text_field :last_name %>
   </div>
 
+  <% if @user.profile_picture.attached? %>
+    <%= image_tag url_for(@user.profile_picture), width: 150 %>
+  <% else %>
+    <p>No profile picture uploaded.</p>
+  <% end %>
+
   <div class="field">
     <%= form.label :profile_picture %>
     <%= form.file_field :profile_picture %>

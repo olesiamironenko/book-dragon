@@ -57,6 +57,19 @@
     </div><br>
 
     <div>
+    <% if book && book.book_picture.attached? %>
+      <%= image_tag url_for(book.book_picture), width: 150 %>
+    <% else %>
+      <p>No book picture available</p>  
+    <% end %>
+    </div>
+    
+    <div>
+      <%= form.label :book_picture %>
+      <%= form.file_field :book_picture %>
+    </div>
+
+    <div>
       <%= form.submit %>
     </div>
 
