@@ -79,3 +79,5 @@ gem "bootstrap", "~> 5.3"
 gem "sassc-rails"
 
 gem 'active_storage_validations'
+
+gem 'acts_as_favoritor'
