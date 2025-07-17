@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :reading_lists, dependent: :destroy
   has_one_attached :profile_picture
+
+  acts_as_favoritor
   
   validates :first_name, presence: true
   validates :last_name, presence: true
